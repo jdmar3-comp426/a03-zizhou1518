@@ -46,10 +46,10 @@ export function maxAndMin(numbers) {
             min1 = numbers[i];
             max1 = numbers[i];
         } else {
-            if (numbers[i] < min) {
+            if (numbers[i] < min1) {
                 min1 = numbers[i];
             }
-            if (numbers[i] > max) {
+            if (numbers[i] > max1) {
                 max1 = numbers[i];
             }
         }
