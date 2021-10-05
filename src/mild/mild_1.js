@@ -9,8 +9,7 @@
  * see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
  */
 export function sumToString(a, b) {
-    let c = a + b;
-    return a.toString() + " " + "+" + " " + b.toString() + " " + "=" + " " + c.toString();
+    return "${a} + ${b} = ${a+b}";
 }
 
 /**
@@ -24,7 +23,11 @@ export function sumToString(a, b) {
  *
  */
 export function getIncreasingArray(startNumber, endNumber) {
-
+    const numbers = [];
+    for (let i = 0; i <= endNumber - startNumber; i++) {
+        numbers[i] = startNumber + i;
+    }
+    return numbers;
 }
 
 /**
@@ -35,6 +38,23 @@ export function getIncreasingArray(startNumber, endNumber) {
  * and https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math
  */
 export function maxAndMin(numbers) {
+    let min1;
+    let max1;
+    for (let i = 0; i < numbers.length; i++) {
+        if (i == 0) {
+            min1 = numbers[i];
+            max1 = numbers[i];
+        } else {
+            if (numbers[i] < min) {
+                min1 = numbers[i];
+            }
+            if (numbers[i] > max) {
+                max1 = numbers[i];
+            }
+        }
+
+    }
+    return {min: min1, max: max1};
 
 }
 
@@ -49,5 +69,15 @@ export function maxAndMin(numbers) {
  *
  */
 export function countArray(array) {
+    var dict = {};
 
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] in dict) {
+            dict[i] += 1;
+        } else {
+            dict[i] = 1;
+        }
+    }
+    
+    return dict;
 }
