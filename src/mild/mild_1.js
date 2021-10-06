@@ -70,15 +70,15 @@ export function maxAndMin(numbers) {
  *
  */
 export function countArray(array) {
-    var dict = {};
+    var count = {};
 
     for (let i = 0; i < array.length; i++) {
-        if (array[i] in dict) {
-            dict[i] += 1;
+        if (array[i] in count) {
+            count[array[i]] += 1;
         } else {
-            dict[i] = 1;
+            count[array[i]] = 1;
         }
     }
 
-    return dict;
+    return count;
 }
