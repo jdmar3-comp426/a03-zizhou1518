@@ -1,5 +1,11 @@
-import mpg_data from "./src/medium/data/mpg_data.js";
-import {getStatistics, getSum} from "./src/medium/medium_1.js";
+import {removeKeys} from "./src/mild/mild_2.js";
 
+let obj = {
+    name: 'Mr. Boss',
+    title: 'boss',
+    age: 33,
+    password: 'pass123'
+};
 
-console.log(typeof mpg_data);
+console.log(removeKeys(obj, ['password', 'age']));
+console.log(obj);
