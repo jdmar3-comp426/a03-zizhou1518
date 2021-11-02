@@ -89,7 +89,19 @@ export const tenTimesFifty = () => {
  *    everyEven([1, 1, 0, 1, 1], x => x === 1)  <--  returns false
  */
 export const everyEven = (arr, test) => {
-
+    let x = arr.length;
+    let bool = []
+    for (let i = 0; i < x; i = i + 2) {
+        bool.push(test(arr[i]));
+    }
+    let y = bool.length;
+    let z = 0;
+    for (let i = 0; i < y; i++) {
+        if (bool[i]) {
+            z++;
+        }
+    }
+    return z == y;
 };
 
 
@@ -113,7 +125,19 @@ export const everyEven = (arr, test) => {
  *    someEven([0, 0, 0, 0, 0], x => x === 0)  <--  returns true
  */
 export const someEven = (arr, test) => {
-
+    let x = arr.length;
+    let bool = []
+    for (let i = 0; i < x; i = i + 2) {
+        bool.push(test(arr[i]));
+    }
+    let y = bool.length;
+    let z = 0;
+    for (let i = 0; i < y; i++) {
+        if (bool[i]) {
+            z++;
+        }
+    }
+    return z > 0;
 };
 
 
@@ -139,7 +163,18 @@ export const someEven = (arr, test) => {
  *       -->  { pass: [1, 5, 31], fail: [90] }
  */
 export const filter = (arr, test) => {
+    let final = {pass: [], fail: []};
+    let len = arr.length;
+    
+    for (let i = 0; i < len; i++) {
+        if (test(arr[i])) {
+            final.pass.push(arr[i]);
+        } else {
+            final.fail.push(arr[i]);
+        }
+    }
 
+    return final;
 };
 
 
@@ -149,9 +184,15 @@ export const filter = (arr, test) => {
  *   odd numbers. Use the "everyEven" function in this function.
  */
 export const allEvensAreOdd = (arr) => {
-
+    return everyEven(arr, isOdd);
 };
 
+export function isOdd(num) {
+    if (num % 2 == 0) {
+        return false;
+    }
+    return true;
+}
 
 /**
  * Write and export a function named "anEvenIsOdd" which takes as input an
@@ -159,7 +200,7 @@ export const allEvensAreOdd = (arr) => {
  *   array is an odd number. Use the "someEven" function in this function.
  */
 export const anEvenIsOdd = (arr) => {
-
+    return someEven(arr, x => (x % 2 != 0));
 };
 
 
@@ -170,5 +211,6 @@ export const anEvenIsOdd = (arr) => {
  *   pass the test. You must use the filter function.
  */
 export const hasExactly = (arr, test, n) => {
-
+    let obj = filter(arr, test);
+    return obj.pass.length == n;
 };
