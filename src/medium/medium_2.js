@@ -151,7 +151,7 @@ export function avgMpgByYearAndHybrid() {
             }
         }
 
-        final[uyear[i]] = {hybrid: {city: getSum(hybridcity) / hybridcity.length, highway: getSum(hybridhigh) / hybridhigh.length}, nonHybrid: {city: getSum(noncity) / noncity.length, highway: getSum(nonhigh) / nonhigh.length}};
+        final[uyear[i]] = {hybrid: {city: getSum(hybridcity) / hybridcity.length, highway: getSum(hybridhigh) / hybridhigh.length}, notHybrid: {city: getSum(noncity) / noncity.length, highway: getSum(nonhigh) / nonhigh.length}};
 
         i++;
     }
