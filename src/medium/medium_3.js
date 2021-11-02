@@ -60,9 +60,14 @@ export function searchMpg(car_data, minCity, minHighway) {
 export function searchName(car_data, searchTerm) {
     let final = [];
     for (let i = 0; i < car_data.length; i++) {
-        if (car_data[i].id === searchTerm) {
-            final.push(car_data[i]);
-        }
+       let initial = car_data[i].id.split(" ");
+       let string = []
+       for (let j = 1 ; j < initial.length; j++) {
+            string.push(initial[j]);
+       }
+       if (string.join(' ') === searchTerm) {
+           final.push(car_data[i]);
+       }
     }
     return final;
 };
