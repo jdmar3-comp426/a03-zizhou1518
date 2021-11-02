@@ -35,7 +35,7 @@ export function avgMpg() {
         high.push(mpg_data[i].highway_mpg);
     }
     return {city: getSum(city) / leng, highway: getSum(high) / leng}
-}
+};
 
 export function allYearStats() {
     let leng = mpg_data.length;
@@ -44,7 +44,7 @@ export function allYearStats() {
         year.push(mpg_data[i].year);
     }
     return getStatistics(year);
-}
+};
 
 export function ratioHybrids() {
     let leng = mpg_data.length;
@@ -55,7 +55,7 @@ export function ratioHybrids() {
         }
     }
     return ratio/leng;
-}
+};
 
 /**
  * HINT: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
@@ -117,4 +117,44 @@ export function ratioHybrids() {
 export const moreStats = {
     makerHybrids: undefined,
     avgMpgByYearAndHybrid: undefined
+};
+
+export function avgMpgByYearAndHybrid() {
+    let final = {};
+    let len = mpg_data.length;
+    let yearf = []
+    for (let i = 0; i < len; i++) {
+        yearf.push(mpg_data[i].year)
+    }
+    let uyear = [...new Set(yearf)];
+    uyear.sort()
+
+    for (let i = 0; i < uyear.length; i++) {
+        final[uyear[i]] = {};
+    }
+
+    let i = 0;
+    while (i < uyear.length) {
+        let hybridcity = [];
+        let hybridhigh = [];
+        let noncity = [];
+        let nonhigh = [];
+        for (let j = 0; j < len; j++) {
+            if (mpg_data[j].year == uyear[i]) {
+                if (mpg_data[j].hybrid) {
+                    hybridcity.push(mpg_data[j].city_mpg);
+                    hybridhigh.push(mpg_data[j].highway_mpg);
+                }else{
+                    noncity.push(mpg_data[j].city_mpg);
+                    nonhigh.push(mpg_data[j].highway_mpg);
+                }
+            }
+        }
+
+        final[uyear[i]] = {hybrid: {city: getSum(hybridcity) / hybridcity.length, highway: getSum(hybridhigh) / hybridhigh.length}, nonHybrid: {city: getSum(noncity) / noncity.length, highway: getSum(nonhigh) / nonhigh.length}};
+
+        i++;
+    }
+
+        return final
 };
