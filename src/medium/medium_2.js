@@ -116,7 +116,7 @@ export function ratioHybrids() {
  */
 export const moreStats = {
     makerHybrids: undefined,
-    avgMpgByYearAndHybrid: undefined
+    avgMpgByYearAndHybrid: avgMpgByYearAndHybrid(),
 };
 
 export function avgMpgByYearAndHybrid() {
