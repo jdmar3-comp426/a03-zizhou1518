@@ -1,5 +1,5 @@
 import mpg_data from "./data/mpg_data.js";
-import {getStatistics} from "./medium_1.js";
+import {getStatistics, getSum} from "./medium_1.js";
 
 /*
 This section can be done by using the array prototype functions.
@@ -20,11 +20,42 @@ see under the methods section
  * @param {allCarStats.ratioHybrids} ratio of cars that are hybrids
  */
 export const allCarStats = {
-    avgMpg: undefined,
-    allYearStats: undefined,
-    ratioHybrids: undefined,
+    avgMpg: avgMpg(),
+    allYearStats: allYearStats(),
+    ratioHybrids: ratioHybrids(),        
+    
 };
 
+export function avgMpg() {
+    let leng = mpg_data.length;
+    let city = [];
+    let high = [];
+    for (let i = 0; i < leng; i++) {
+        city.push(mpg_data[i].city_mpg);
+        high.push(mpg_data[i].highway_mpg);
+    }
+    return {city: getSum(city) / leng, highway: getSum(high) / leng}
+};
+
+export function allYearStats() {
+    let leng = mpg_data.length;
+    let year = [];
+    for (let i = 0; i < leng; i++) {
+        year.push(mpg_data[i].year);
+    }
+    return getStatistics(year);
+};
+
+export function ratioHybrids() {
+    let leng = mpg_data.length;
+    let ratio = 0;
+    for (let i = 0; i < leng; i++) {
+        if (mpg_data[i].hybrid) {
+            ratio++;
+        }
+    }
+    return ratio/leng;
+};
 
 /**
  * HINT: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
@@ -85,5 +116,45 @@ export const allCarStats = {
  */
 export const moreStats = {
     makerHybrids: undefined,
-    avgMpgByYearAndHybrid: undefined
+    avgMpgByYearAndHybrid: avgMpgByYearAndHybrid(),
+};
+
+export function avgMpgByYearAndHybrid() {
+    let final = {};
+    let len = mpg_data.length;
+    let yearf = []
+    for (let i = 0; i < len; i++) {
+        yearf.push(mpg_data[i].year)
+    }
+    let uyear = [...new Set(yearf)];
+    uyear.sort()
+
+    for (let i = 0; i < uyear.length; i++) {
+        final[uyear[i]] = {};
+    }
+
+    let i = 0;
+    while (i < uyear.length) {
+        let hybridcity = [];
+        let hybridhigh = [];
+        let noncity = [];
+        let nonhigh = [];
+        for (let j = 0; j < len; j++) {
+            if (mpg_data[j].year == uyear[i]) {
+                if (mpg_data[j].hybrid) {
+                    hybridcity.push(mpg_data[j].city_mpg);
+                    hybridhigh.push(mpg_data[j].highway_mpg);
+                }else{
+                    noncity.push(mpg_data[j].city_mpg);
+                    nonhigh.push(mpg_data[j].highway_mpg);
+                }
+            }
+        }
+
+        final[uyear[i]] = {hybrid: {city: getSum(hybridcity) / hybridcity.length, highway: getSum(hybridhigh) / hybridhigh.length}, notHybrid: {city: getSum(noncity) / noncity.length, highway: getSum(nonhigh) / nonhigh.length}};
+
+        i++;
+    }
+
+        return final
 };
